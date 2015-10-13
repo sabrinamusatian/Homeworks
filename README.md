@@ -1,2 +1,0 @@
-# Homeworks
-For all homeworks
