@@ -2,10 +2,11 @@
 
 int bang(int x)
 {
-	int negativeX = ~x + 1;
-  int temprorary = ((x >> 31) & 1) | ((negativeX >> 31) & 1);
-	return temprorary ^ 1;
+   int negativeX = ~x + 1;
+   int temprorary = ((x >> 31) & 1) | ((negativeX >> 31) & 1);
+   return temprorary ^ 1;
 }
+
 int main()
 {
     int x;
