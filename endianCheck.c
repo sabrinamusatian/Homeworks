@@ -3,7 +3,7 @@
 union machine
 {
     int x;
-    char bytes[4];
+    char bytes[sizeof(int)];
 };
 
 int endian()
