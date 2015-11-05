@@ -2,7 +2,9 @@
 
 int isPower2(int x)
 {
-	return (!((x & (~x + 1)) + (~x + 1)));
+    int temp;
+    temp = (!((1 << 31) & x)) & (!(x & (x + (~0)))) & (!!x);
+    return temp;
 }
 
 int main()
@@ -13,3 +15,4 @@ int main()
     printf("isPower2 is %d", isPower2(x));
     return 0;
 }
+
