@@ -6,7 +6,7 @@ int logicalShift(int x, int n)
 	x = x >> n;
 	temp = (((~(temp << 31)) >> n) << 1) + 1;
 	temp = temp & x;
-	return(temp);
+	return temp;
 }
 
 int main()
