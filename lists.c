@@ -33,9 +33,9 @@ void add(node **head, int value)
     temp->field = value;
     if (*head == NULL)
     {
-		temp->next = *head;
-		*head = temp;
-		printf("The element has been added\n");
+	temp->next = *head;
+	*head = temp;
+	printf("The element has been added\n");
         return;
     }
     else
@@ -91,7 +91,7 @@ void print(node *head)
     {
 		printf("List is empty\n");
 		return;
-	}
+    }
 
     while (head != NULL)
     {
@@ -127,15 +127,15 @@ void createRing(node **head)
 void checkRing(node **head)
 {
 	if (*head == NULL)
-    {
-        printf("The list is empty. It cannot be a ring\n");
+	{
+		printf("The list is empty. It cannot be a ring\n");
 		return;
 	}
 
 	node *temp1 = *head, *temp2 = (*head)->next;
 
 	while (temp2->next && temp2->next->next && temp1 != temp2)
-    {
+    	{
 		temp2 = temp2->next->next;
 		temp1 = temp1->next;
 	}
@@ -154,7 +154,7 @@ int main()
     int val, check = 0;
 	char c;
 	while (check == 0)
-    {
+    	{
 		scanf("%c", &c);
 		switch(c)
 		{
@@ -173,12 +173,12 @@ int main()
 			break;
 
 			case 's':
-                createRing(&head);
-            break;
+        			createRing(&head);
+            		break;
 
-            case 'c':
-                checkRing(&head);
-            break;
+            		case 'c':
+                		checkRing(&head);
+            		break;
 
 			case 'q':
 				clear(head);
