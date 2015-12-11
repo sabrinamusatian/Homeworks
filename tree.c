@@ -173,6 +173,8 @@ void clearTree(binTree *root)
     free(root);
     return;
 }
+
+
 int main()
 {
     binTree* root = NULL;
