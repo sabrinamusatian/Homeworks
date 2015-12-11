@@ -29,6 +29,7 @@ void three()
                 {
                     fprintf(f2, "%c", s[j]);
                 }
+                fprintf(f2, "\n");
                 break;
             }
         }
