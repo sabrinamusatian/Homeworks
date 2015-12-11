@@ -66,7 +66,9 @@ void rem(node **head, int value)
             {
                 *head = temp->next;
             }
-            temp = NULL;
+            free(temp);
+            printf("Element has been removed\n");
+            return;
         }
         else
         {
@@ -74,11 +76,7 @@ void rem(node **head, int value)
             temp = temp->next;
         }
     }
-    if (check == 1)
-    {
-        printf("Element has been removed\n");
-    }
-    else
+    if (check == 0)
     {
         printf("Element has not been found in the list\n");
     }
