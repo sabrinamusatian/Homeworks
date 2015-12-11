@@ -176,8 +176,8 @@ void clearTree(binTree *root)
 int main()
 {
     binTree* root = NULL;
-    int j=0;
-    while(j == 0)
+    int i = 0;
+    while(i == 0)
     {
         char c;
         int cur;
@@ -210,7 +210,7 @@ int main()
             break;
             case 'c':
                 clearTree(root);
-                j = 1;
+                i = 1;
             break;
         }
     }
