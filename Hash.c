@@ -234,7 +234,7 @@ int main()
     while (scanf("%s", key) != EOF)
     {
         size_t len = strlen(key) - 1;
-        while (len >= 0 && !(isalpha(key[len]) || isalnum(key[len])))
+        while (len >= 0 && !(isalnum(key[len])))
         {
             key[len] = '\0';
             len--;
