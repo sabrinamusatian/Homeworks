@@ -59,7 +59,7 @@ int hashRot13(char *key)
 		hash += (int)key[i];
 		hash -= (hash << 13) | (hash >> 19);
 	}
-  return hash;
+  	return hash;
 }
 
 node *search(char *key)
