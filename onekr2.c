@@ -6,7 +6,7 @@ void one()
 {
     char cur;
     scanf("%c\n", &cur);
-    char *s;
+    char s[256];
     gets(s);
     int i;
     for (i = 0; i < strlen(s); i++)
