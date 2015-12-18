@@ -39,12 +39,11 @@ binTree* addElement(binTree *root, int cur)
     return root;
 }
 
-void isElement(binTree *root, int cur)
+int hasElement(binTree *root, int cur)
 {
     if (root == NULL)
     {
-        printf("Element doesn't belong to tree\n");
-        return;
+        return 0;
     }
     if (root->value < cur)
     {
@@ -56,8 +55,7 @@ void isElement(binTree *root, int cur)
     }
     else if (root->value == cur)
     {
-        printf("Element belongs to tree\n");
-        return;
+        return 1;
     }
 }
 
@@ -196,7 +194,14 @@ int main()
             break;
             case 'i':
                 scanf("%d", &cur);
-                isElement(root, cur);
+                if(hasElement(root, cur) == 0)
+                {
+                        printf("Element doesn't belong to tree\n");
+                }
+                else
+                {
+                        printf("Element belongs to tree\n");
+                }
             break;
             case 'p':
                 printParenthesis(root);
