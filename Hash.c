@@ -1,27 +1,28 @@
 #include <stdio.h>
 #include <stdlib.h>
 #include <time.h>
-
+#include <string.h>
+#include <ctype.h>
 
 typedef struct node
 {
     int val;
-    long long hash;
+    char hash[256];
     struct node *next;
-}node;
+} node;
 
 
 typedef struct hashChain
 {
     node *chain;
-}buckets;
+} buckets;
 
 typedef struct hashTable
 {
     int size;
     buckets *cells;
     int (*callback)(char*);
-}hashTable;
+} hashTable;
 
 hashTable hashT;
 
@@ -59,7 +60,7 @@ int hashRot13(char *key)
 		hash += (int)key[i];
 		hash -= (hash << 13) | (hash >> 19);
 	}
-  	return hash;
+    return hash;
 }
 
 node *search(char *key)
@@ -71,7 +72,7 @@ node *search(char *key)
     while (cur->next != NULL)
     {
         node *temp = cur->next;
-        if (temp->hash == hashValue)
+        if (strcmp(temp->hash,key) == 0)
         {
             return cur;
         }
@@ -81,13 +82,13 @@ node *search(char *key)
     return cur;
 }
 
-void createHashTable(int(*func)(char*), int size)
+int createHashTable(int(*func)(char*), int size)
 {
     hashT.cells = (buckets*)malloc(size * sizeof(buckets));
     if (hashT.cells == NULL)
     {
         printf("Malloc failed in create\n");
-        return;
+        return -1;
     }
 
     int i;
@@ -100,12 +101,12 @@ void createHashTable(int(*func)(char*), int size)
         if (hashT.cells[i].chain == NULL)
         {
             printf("Malloc failed in create\n");
-            return;
+            return -1;
         }
         hashT.cells[i].chain->next = NULL;
         hashT.cells[i].chain->val = 0;
     }
-    return;
+    return 0;
 }
 
 void deleteHashTable()
@@ -125,7 +126,7 @@ void deleteHashTable()
     return;
 }
 
-void set(char *key, int x)
+void add(char *key)
 {
     node *cur = search(key);
     if (cur->next == NULL)
@@ -133,19 +134,18 @@ void set(char *key, int x)
         node *newEl = (node*)malloc(sizeof(node));
         if (newEl == NULL)
         {
-            printf("Malloc failed in set\n");
+            printf("Malloc failed in add\n");
             return;
         }
         cur->next = newEl;
         newEl->next = NULL;
-        newEl->val = x;
-        newEl->hash = callFunc(hashT.callback, key);
+        newEl->val = 1;
+        strcpy(newEl->hash, key);
     }
     else
     {
         cur = cur->next;
-        x = cur->val + x;
-        cur->val = x;
+        cur->val++;
     }
 
     return;
@@ -221,14 +221,27 @@ void statistics()
 
 int main()
 {
-    freopen("Romeo_and_Juliet.txt", "r", stdin);
-    freopen("output.txt", "w", stdout);
-
+    FILE *fp = freopen("Romeo_and_Juliet.txt", "r", stdin);
+    FILE *outp = freopen("output.txt", "w", stdout);
+    if (fp == NULL)
+    {
+        printf("Can't open a file for reading!");
+        return 0;
+    }
+    if (outp == NULL)
+    {
+        printf("Can't open a file for writing!");
+        return 0;
+    }
     double start = clock();
 
     const int size = 65700;
 
-    createHashTable(hashCountString, size);
+    if (createHashTable(hashCountString, size) != 0)
+    {
+        printf("Can't make a hashtable!!!!");
+        return 0;
+    }
 
     char key[100];
     while (scanf("%s", key) != EOF)
@@ -239,15 +252,15 @@ int main()
             key[len] = '\0';
             len--;
         }
-        set(key, 1);
+
+        add(key);
     }
     statistics();
     deleteHashTable();
     printf("%f", (clock() - start) / CLOCKS_PER_SEC);
-    
+
     fclose(stdin);
     fclose(stdout);
-    
     return 0;
 }
 
@@ -256,23 +269,23 @@ int main()
 Constant hash:
 Number of used cells in hash Table: 1
 Number of elements in hash Table: 27477
-Average length of chains in hash Table: 1
-Minimal length of chains in hash Table: 1
-Maximal length of chains in hash Table: 1
-0.031000
+Average length of chains in hash Table: 5022
+Minimal length of chains in hash Table: 5022
+Maximal length of chains in hash Table: 5022
+0.499000
 
 Counting stings hash:
 Number of used cells in hash Table: 1108
 Number of elements in hash Table: 27477
-Average length of chains in hash Table: 1
+Average length of chains in hash Table: 4
 Minimal length of chains in hash Table: 1
-Maximal length of chains in hash Table: 1
-0.046000
+Maximal length of chains in hash Table: 28
+0.062000
 
 Rot13 hash (effective):
 Number of used cells in hash Table: 3760
 Number of elements in hash Table: 27477
 Average length of chains in hash Table: 1
 Minimal length of chains in hash Table: 1
-Maximal length of chains in hash Table: 3
-0.031000*/
+Maximal length of chains in hash Table: 8
+0.046000*/
