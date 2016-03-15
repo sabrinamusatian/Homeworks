@@ -1,0 +1,54 @@
+
+#include <stdio.h>
+#include <stdlib.h>
+#include <string.h>
+
+void two()
+{
+    char num1[100];
+    char num2[100];
+    gets(num1);
+    gets(num2);
+    int i = 0, j = 0, len = 99;
+    while (num1[len - i] != '1')
+    {
+        i++;
+    }
+    while (num2[len - j] != '1')
+    {
+        j++;
+    }
+    if (i > j)
+    {
+        printf ("-1\n");
+        return;
+    }
+    else if (i < j)
+    {
+        printf("1\n");
+        return;
+    }
+    else if (i == j)
+    {
+        while (num1[len - i] == num2[len - i] && i < len)
+        {
+            i++;
+        }
+        if (num1[len - i] > num2[len - i])
+        {
+            printf("1\n");
+            return;
+        }
+        else if (num1[len - i] < num2[len - i])
+        {
+            printf ("-1\n");
+            return;
+        }
+        else if (num1[len - i] == num2[len - i])
+        {
+            printf ("0\n");
+            return;
+        }
+    }
+    return;
+}
