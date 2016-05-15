@@ -2,9 +2,9 @@
 #include <string.h>
 
 #define NUM_OF_COMMANDS 9
-#define MAX_SIZE 1048576
-#define MAX_LINES 1000
-#define MAX_NAME 50
+#define SIZE 1048576
+#define LINES 1000
+#define NAME 50
 
 typedef struct
 {
@@ -12,11 +12,11 @@ typedef struct
     union
     {
         int number;
-        char lbl[MAX_NAME];
+        char lbl[NAME];
     } arg;
 } commands;
 
-commands instructions[MAX_LINES];
+commands instructions[LINES];
 char *commandsName [NUM_OF_COMMANDS] = {"ld", "st", "ldc", "add", "sub", "cmp", "jmp", "br", "ret"}; // command names
 
 // enumerate all command for simplicity
@@ -35,18 +35,18 @@ typedef enum
 
 typedef struct
 {
-    char name[MAX_NAME];
+    char name[NAME];
     size_t line;
 } typeLabel;
 
-typeLabel label[MAX_LINES];
+typeLabel label[LINES];
 
 
-int data[MAX_SIZE];
-int stack[MAX_SIZE];
+int data[SIZE];
+int stack[SIZE];
 char str[255];
-char stringInstruction[MAX_NAME];
-char stArg[MAX_NAME];
+char stringInstruction[NAME];
+char stArg[NAME];
 int arrLabel = 0;
 int countLines = 0;
 
@@ -147,7 +147,7 @@ int run(FILE *file)
     int SP = -1;
     int i = -1;
     int arg;
-    char lbl[MAX_NAME];
+    char lbl[NAME];
     int a, b, j;
     while (1)
     {
@@ -157,7 +157,7 @@ int run(FILE *file)
            case LD:
                SP++;
                arg = instructions[i].arg.number;
-               if ((SP < 0) || (SP > MAX_SIZE) || (arg > MAX_SIZE) || (arg < 0))
+               if ((SP < 0) || (SP > SIZE) || (arg > SIZE) || (arg < 0))
                {
                   printf("ERROR_IN_LD");
                   return 0;
@@ -166,7 +166,7 @@ int run(FILE *file)
                break;
            case ST:
                arg = instructions[i].arg.number;
-               if ((SP < 0) || (SP > MAX_SIZE) || (arg > MAX_SIZE) || (arg < 0))
+               if ((SP < 0) || (SP > SIZE) || (arg > SIZE) || (arg < 0))
                {
                   printf("ERROR_IN_ST");
                   return 0;
@@ -177,7 +177,7 @@ int run(FILE *file)
            case LDC:
                SP++;
                arg = instructions[i].arg.number;
-               if ((SP < 0) || (SP > MAX_SIZE))
+               if ((SP < 0) || (SP > SIZE))
                {
                    printf("ERROR_IN_LDC");
                    return 0;
